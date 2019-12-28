@@ -28,6 +28,11 @@ class VehicleAdapter(private var vehicleList: ArrayList<Vehicle>) :
         holder.itemVehicleBinding.vehicle = vehicleList[position]
     }
 
+    fun setUpVehicles(listOfVehicles: List<Vehicle>) {
+        vehicleList.clear()
+        vehicleList.addAll(listOfVehicles)
+        notifyDataSetChanged()
+    }
 }
 
 class VehicleViewHolder(val itemVehicleBinding: ItemVehicleBinding) :
