@@ -1,23 +1,31 @@
 package com.example.swapivehicles.adapter
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.swapivehicles.R
 import com.example.swapivehicles.databinding.ItemVehicleBinding
 import com.example.swapivehicles.model.Vehicle
 
 
-class VehicleAdapter(private var vehicleList: ArrayList<Vehicle>) : RecyclerView.Adapter<VehicleViewHolder>() {
+class VehicleAdapter(private var vehicleList: ArrayList<Vehicle>) :
+    RecyclerView.Adapter<VehicleViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VehicleViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val itemVehicleBinding: ItemVehicleBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_vehicle,
+            parent,
+            false
+        )
+        return VehicleViewHolder(itemVehicleBinding)
     }
 
-    override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getItemCount(): Int = vehicleList.size
 
     override fun onBindViewHolder(holder: VehicleViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        holder.itemVehicleBinding.vehicle = vehicleList[position]
     }
 
 }
