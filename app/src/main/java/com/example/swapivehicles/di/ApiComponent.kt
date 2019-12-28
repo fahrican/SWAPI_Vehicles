@@ -1,5 +1,6 @@
 package com.example.swapivehicles.di
 
+import com.example.swapivehicles.service.NetworkService
 import com.example.swapivehicles.view.MainActivity
 import dagger.Component
 
@@ -7,4 +8,6 @@ import dagger.Component
 interface ApiComponent {
 
     fun inject(mainActivity: MainActivity)
+
+    fun inject(networkService: NetworkService)
 }
