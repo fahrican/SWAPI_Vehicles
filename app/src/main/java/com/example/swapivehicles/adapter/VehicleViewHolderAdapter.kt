@@ -22,8 +22,5 @@ class VehicleAdapter(private var vehicleList: ArrayList<Vehicle>) : RecyclerView
 
 }
 
-class VehicleViewHolder(vehicleItem: ItemVehicleBinding) :
-    RecyclerView.ViewHolder(vehicleItem.root) {
-
-    val itemVehicleBinding: ItemVehicleBinding = vehicleItem
-}
+class VehicleViewHolder(val itemVehicleBinding: ItemVehicleBinding) :
+    RecyclerView.ViewHolder(itemVehicleBinding.root)
