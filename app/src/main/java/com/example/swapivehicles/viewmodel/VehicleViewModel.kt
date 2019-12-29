@@ -11,7 +11,6 @@ import javax.inject.Inject
 
 class VehicleViewModel : ViewModel() {
 
-
     @Inject
     lateinit var vehicleAdapter: VehicleAdapter
     @Inject
