@@ -22,5 +22,23 @@ class VehicleViewModel : ViewModel() {
     @Inject
     lateinit var inProgressMLD: MutableLiveData<Boolean>
     @Inject
-    lateinit var isErrorLD: LiveData<Boolean>
+    lateinit var isErrorMLD: MutableLiveData<Boolean>
+
+    init {
+        DaggerApiComponent.create().inject(this)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
+    }
+
+    fun refresh(){
+        fetchVehicles()
+    }
+
+    private fun fetchVehicles() {
+        inProgressMLD.value = true
+
+    }
 }
