@@ -1,6 +1,5 @@
 package com.example.swapivehicles.di
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.swapivehicles.adapter.VehicleAdapter
 import com.example.swapivehicles.api_endpoint.StarWarsApi
@@ -47,12 +46,12 @@ class ApiModule {
     }
 
     @Provides
-    fun provideLiveDataListOfVehicles(): LiveData<List<Vehicle>> {
+    fun provideLiveDataListOfVehicles(): MutableLiveData<List<Vehicle>> {
         return MutableLiveData()
     }
 
     @Provides
-    fun provideLiveDataBoolean(): LiveData<Boolean> {
+    fun provideLiveDataBoolean(): MutableLiveData<Boolean> {
         return MutableLiveData()
     }
 }
