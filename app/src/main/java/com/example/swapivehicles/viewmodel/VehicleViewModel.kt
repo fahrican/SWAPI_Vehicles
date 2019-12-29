@@ -1,12 +1,16 @@
 package com.example.swapivehicles.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.swapivehicles.adapter.VehicleAdapter
 import com.example.swapivehicles.di.DaggerApiComponent
 import com.example.swapivehicles.model.Vehicle
 import com.example.swapivehicles.service.NetworkService
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class VehicleViewModel : ViewModel() {
@@ -33,12 +37,36 @@ class VehicleViewModel : ViewModel() {
         compositeDisposable.clear()
     }
 
-    fun refresh(){
+    fun refresh() {
         fetchVehicles()
     }
 
     private fun fetchVehicles() {
         inProgressMLD.value = true
 
+        compositeDisposable.add( // API call get stored in compositeDisposable
+            networkService.fetchVehicle() // Makes the call to the endpoint
+                .subscribeOn(Schedulers.io()) // subscribeOn() starts a separate thread (Schedulers.io()) for the network call
+                .observeOn(AndroidSchedulers.mainThread()) // Displays the result on the UI
+                .map { it.results } // Takes the list of vehicles in VehiclesResult pass it on to the next operator
+                .subscribeWith(createVehicleObserver()) // The glue that connects networkService.fetchVehicle() with createVehicleObserver()
+        )
+    }
+
+    private fun createVehicleObserver(): DisposableSingleObserver<List<Vehicle>> {
+        return object : DisposableSingleObserver<List<Vehicle>>() {
+
+            override fun onSuccess(vehicles: List<Vehicle>) {
+                inProgressMLD.value = false
+                isErrorMLD.value = false
+                vehicleListMLD.value = vehicles
+            }
+
+            override fun onError(e: Throwable) {
+                inProgressMLD.value = false
+                isErrorMLD.value = true
+                Log.e("onError()", "Error: ${e.message}")
+            }
+        }
     }
 }
