@@ -14,16 +14,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class ApiModule {
 
     @Provides
-    fun provideVehicleList(): ArrayList<Vehicle> {
-        return ArrayList()
-    }
-
-    @Provides
-    fun provideVehicleAdapter(vehicles: ArrayList<Vehicle>): VehicleAdapter {
-        return VehicleAdapter(vehicles)
-    }
-
-    @Provides
     fun provideStarWarsApi(): StarWarsApi {
         return Retrofit.Builder()
             .baseUrl(NetworkService.BASE_URL)
@@ -31,5 +21,15 @@ class ApiModule {
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
             .create(StarWarsApi::class.java)
+    }
+
+    @Provides
+    fun provideVehicleList(): ArrayList<Vehicle> {
+        return ArrayList()
+    }
+
+    @Provides
+    fun provideVehicleAdapter(vehicles: ArrayList<Vehicle>): VehicleAdapter {
+        return VehicleAdapter(vehicles)
     }
 }
