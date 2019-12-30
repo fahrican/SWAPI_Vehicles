@@ -36,7 +36,6 @@ def lifeCycleExtensionsVersion = '1.1.1'
 def androidxVersion = '1.1.0'
 def retrofitVersion = '2.4.0'
 def daggerVersion = '2.13'
-def mockitoVersion = '2.11.0'
 def firstStableVersion = '1.0.0'
 
 dependencies {
@@ -66,12 +65,4 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
-
-    //Everything testing related
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
-    testImplementation "android.arch.core:core-testing:$lifeCycleExtensionsVersion"
-
-    androidTestImplementation "androidx.test.ext:junit:$lifeCycleExtensionsVersion"
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
