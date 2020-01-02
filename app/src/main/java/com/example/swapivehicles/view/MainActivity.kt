@@ -30,14 +30,11 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context)
             adapter = vehicleViewModel.vehicleAdapter
         }
+
+        observeViewModelProperties()
     }
 
-    override fun onResume() {
-        super.onResume()
-        observeViewModel()
-    }
-
-    private fun observeViewModel() {
+    private fun observeViewModelProperties() {
         observeVehicleList()
         observeInProgress()
         observeIsError()
