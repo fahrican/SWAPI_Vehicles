@@ -3,10 +3,12 @@ package com.example.swapivehicles.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.swapivehicles.R
+import com.example.swapivehicles.model.Vehicle
 import com.example.swapivehicles.viewmodel.VehicleViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -31,17 +33,18 @@ class MainActivity : AppCompatActivity() {
             adapter = vehicleViewModel.vehicleAdapter
         }
 
-        observeViewModelProperties()
+        observeLiveData()
     }
 
-    private fun observeViewModelProperties() {
-        observeVehicleList()
+    private fun observeLiveData() {
         observeInProgress()
         observeIsError()
+        observeVehicleList()
     }
 
     private fun observeVehicleList() {
-        vehicleViewModel.vehicleListMLD.observe(this, Observer { allVehicles ->
+        val vehicleListLD: LiveData<List<Vehicle>> = vehicleViewModel.vehicleListMLD
+        vehicleListLD.observe(this, Observer { allVehicles ->
             allVehicles.let {
                 main_recycler_view.visibility = View.VISIBLE
                 vehicleViewModel.vehicleAdapter.setUpVehicles(it)
@@ -50,12 +53,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeInProgress() {
-        vehicleViewModel.inProgressMLD.observe(this, Observer { isLoading ->
+        val inProgressLD: LiveData<Boolean> = vehicleViewModel.inProgressMLD
+        inProgressLD.observe(this, Observer { isLoading ->
             isLoading.let {
                 if (it) {
-                    vehicle_fetch_progress.visibility = View.VISIBLE
                     vehicle_fetch_error.visibility = View.GONE
                     main_recycler_view.visibility = View.GONE
+                    vehicle_fetch_progress.visibility = View.VISIBLE
                 } else {
                     vehicle_fetch_progress.visibility = View.GONE
                 }
@@ -64,7 +68,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeIsError() {
-        vehicleViewModel.isErrorMLD.observe(this, Observer { isError ->
+        val isErrorLD: LiveData<Boolean> = vehicleViewModel.isErrorMLD
+        isErrorLD.observe(this, Observer { isError ->
             isError.let { vehicle_fetch_error.visibility = if (it) View.VISIBLE else View.GONE }
         })
     }
