@@ -42,8 +42,6 @@ class VehicleViewModel : ViewModel() {
     }
 
     private fun fetchVehicles() {
-        inProgressMLD.value = true
-
         compositeDisposable.add( // API call get stored in compositeDisposable
             networkService.fetchVehicle() // Makes the call to the endpoint
                 .subscribeOn(Schedulers.io()) // subscribeOn() starts a separate thread (Schedulers.io()) for the network call
