@@ -44,8 +44,8 @@ class VehicleViewModel : ViewModel() {
     private fun fetchVehicles() {
         compositeDisposable.add( // API call get stored in compositeDisposable
             networkService.fetchVehicle() // Makes the call to the endpoint
-                .subscribeOn(Schedulers.io()) // subscribeOn() starts a separate thread (Schedulers.io()) for the network call
-                .observeOn(AndroidSchedulers.mainThread()) // Displays the result on the UI
+                .subscribeOn(Schedulers.io()) // Subscribes on a background thread, which is Schedulers.io()
+                .observeOn(AndroidSchedulers.mainThread()) //  Displays the result on the main thread (UI thread)
                 .map { it.results } // Takes the list of vehicles in VehiclesResult pass it on to the next operator
                 .subscribeWith(createVehicleObserver()) // The glue that connects networkService.fetchVehicle() with createVehicleObserver()
         )
