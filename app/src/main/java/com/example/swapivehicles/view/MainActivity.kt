@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         vehicleViewModel = ViewModelProviders.of(this).get(VehicleViewModel::class.java)
-        vehicleViewModel.refresh()
 
         main_swipe_refresh_layout.setOnRefreshListener {
             main_swipe_refresh_layout.isRefreshing = false
