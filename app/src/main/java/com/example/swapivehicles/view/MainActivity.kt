@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         vehicleListLD.observe(this, Observer { allVehicles ->
             allVehicles.let {
                 main_recycler_view.visibility = View.VISIBLE
-                vehicleViewModel.vehicleAdapter.setUpVehicles(it)
+                vehicleAdapter.setUpVehicles(it)
             }
         })
     }
