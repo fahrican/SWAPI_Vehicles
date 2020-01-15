@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         main_recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = vehicleViewModel.vehicleAdapter
+            adapter = vehicleAdapter
         }
 
         observeLiveData()
