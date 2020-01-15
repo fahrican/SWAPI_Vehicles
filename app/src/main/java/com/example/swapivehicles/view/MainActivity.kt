@@ -8,11 +8,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.swapivehicles.R
+import com.example.swapivehicles.adapter.VehicleAdapter
+import com.example.swapivehicles.di.DaggerApiComponent
 import com.example.swapivehicles.model.Vehicle
 import com.example.swapivehicles.viewmodel.VehicleViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var vehicleAdapter: VehicleAdapter
 
     private lateinit var vehicleViewModel: VehicleViewModel
 
