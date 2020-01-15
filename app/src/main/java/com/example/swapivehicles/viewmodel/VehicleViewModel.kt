@@ -30,6 +30,7 @@ class VehicleViewModel : ViewModel() {
 
     init {
         DaggerApiComponent.create().inject(this)
+        fetchVehicles()
     }
 
     override fun onCleared() {
