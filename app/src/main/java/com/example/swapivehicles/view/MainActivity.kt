@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        DaggerApiComponent.create().inject(this)
+
         vehicleViewModel = ViewModelProviders.of(this).get(VehicleViewModel::class.java)
 
         main_swipe_refresh_layout.setOnRefreshListener {
