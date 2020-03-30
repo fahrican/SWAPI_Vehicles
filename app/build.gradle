@@ -30,6 +30,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions { jvmTarget = "1.8" }
 }
 
 def lifeCycleExtensionsVersion = '1.1.1'
@@ -50,6 +51,8 @@ dependencies {
 
     // Android Lifecycle Extensions
     implementation "android.arch.lifecycle:extensions:$lifeCycleExtensionsVersion"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation "androidx.activity:activity-ktx:$androidxVersion"
 
     // Retrofit 2
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
