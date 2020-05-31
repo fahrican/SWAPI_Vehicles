@@ -44,14 +44,4 @@ class ApiModule {
     fun provideCompositeDisposable(): CompositeDisposable {
         return CompositeDisposable()
     }
-
-    @Provides
-    fun provideLiveDataListOfVehicles(): MutableLiveData<List<Vehicle>> {
-        return MutableLiveData()
-    }
-
-    @Provides
-    fun provideLiveDataBoolean(): MutableLiveData<Boolean> {
-        return MutableLiveData()
-    }
 }
