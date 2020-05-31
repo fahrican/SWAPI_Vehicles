@@ -20,6 +20,6 @@ class NetworkService {
     }
 
     companion object {
-        val BASE_URL = "https://swapi.co/"
+        val BASE_URL = "https://swapi.dev/"
     }
 }
