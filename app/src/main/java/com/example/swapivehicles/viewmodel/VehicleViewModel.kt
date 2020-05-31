@@ -1,6 +1,7 @@
 package com.example.swapivehicles.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.swapivehicles.di.DaggerApiComponent
@@ -16,14 +17,20 @@ class VehicleViewModel : ViewModel() {
 
     @Inject
     lateinit var networkService: NetworkService
+
     @Inject
     lateinit var compositeDisposable: CompositeDisposable
-    @Inject
-    lateinit var vehicleListMLD: MutableLiveData<List<Vehicle>>
-    @Inject
-    lateinit var inProgressMLD: MutableLiveData<Boolean>
-    @Inject
-    lateinit var isErrorMLD: MutableLiveData<Boolean>
+
+    private val vehicleList by lazy { MutableLiveData<List<Vehicle>>() }
+    val vehicleListLD: LiveData<List<Vehicle>>
+        get() = vehicleList
+    private val inProgress by lazy { MutableLiveData<Boolean>() }
+    val inProgressLD: LiveData<Boolean>
+        get() = inProgress
+    private val isError by lazy { MutableLiveData<Boolean>() }
+    val isErrorLD: LiveData<Boolean>
+        get() = isError
+
 
     init {
         DaggerApiComponent.create().inject(this)
