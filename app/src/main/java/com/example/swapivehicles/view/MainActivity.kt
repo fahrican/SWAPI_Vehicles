@@ -4,13 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.swapivehicles.R
 import com.example.swapivehicles.adapter.VehicleAdapter
 import com.example.swapivehicles.di.DaggerApiComponent
-import com.example.swapivehicles.model.Vehicle
 import com.example.swapivehicles.viewmodel.VehicleViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -48,8 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeVehicleList() {
-        val vehicleListLD: LiveData<List<Vehicle>> = vehicleViewModel.vehicleListMLD
-        vehicleListLD.observe(this, Observer { allVehicles ->
+        vehicleViewModel.vehicleListLD.observe(this, Observer { allVehicles ->
             allVehicles.let {
                 main_recycler_view.visibility = View.VISIBLE
                 vehicleAdapter.setUpVehicles(it)
@@ -58,8 +55,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeInProgress() {
-        val inProgressLD: LiveData<Boolean> = vehicleViewModel.inProgressMLD
-        inProgressLD.observe(this, Observer { isLoading ->
+        vehicleViewModel.inProgressLD.observe(this, Observer { isLoading ->
             isLoading.let {
                 if (it) {
                     vehicle_fetch_error.visibility = View.GONE
@@ -73,8 +69,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeIsError() {
-        val isErrorLD: LiveData<Boolean> = vehicleViewModel.isErrorMLD
-        isErrorLD.observe(this, Observer { isError ->
+        vehicleViewModel.isErrorLD.observe(this, Observer { isError ->
             isError.let { vehicle_fetch_error.visibility = if (it) View.VISIBLE else View.GONE }
         })
     }
