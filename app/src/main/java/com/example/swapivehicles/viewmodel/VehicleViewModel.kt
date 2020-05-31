@@ -60,17 +60,17 @@ class VehicleViewModel : ViewModel() {
         return object : DisposableSingleObserver<List<Vehicle>>() {
 
             override fun onSuccess(vehicles: List<Vehicle>) {
-                inProgressMLD.value = true
-                isErrorMLD.value = false
-                vehicleListMLD.value = vehicles
-                inProgressMLD.value = false
+                inProgress.value = true
+                isError.value = false
+                vehicleList.value = vehicles
+                inProgress.value = false
             }
 
             override fun onError(e: Throwable) {
-                inProgressMLD.value = true
-                isErrorMLD.value = true
+                inProgress.value = true
+                isError.value = true
                 Log.e("onError()", "Error: ${e.message}")
-                inProgressMLD.value = false
+                inProgress.value = false
             }
         }
     }
